@@ -14,13 +14,10 @@ def user_input():
 def password_hint():
     """
     Purpose
-        displays question and prompts user for their answer
+        Prompts user to ask for a hint when they forget their password and gives them a hint
     Parameters
     Attributes
     Returns
-        incorrect input: error message
-        correct input: hint
+        A userful segment of string from a security question
     Side Effects
-        incorrect input: allow 5 more tries before locking user out for n seconds
-        correct input: send user to 'password reset' function
     """ 
