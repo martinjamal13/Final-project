@@ -73,3 +73,38 @@ class PasswordGenerator:
         Side Effects
             decrease attempts each time user inputs value different from expected_hint_response
         """
+
+    def recent_password(self, start_date = 90):
+        """
+        Purpose
+            This function will count down the days until a new password will need to be generated and give an update everyday    
+        Args
+            start_date (int): This will be a default value of 90 which represents 90 days.
+        Returns
+            an f string that tells the user how many days they have left until they will have to generate a new password.
+            returns the new date so that it continously decreases by one each day. 
+        Side effects
+            User has no input here and consequently have no control over how often the password will expire.
+        
+        """
+        
+    def reset_password(self, username, answer1, answer2, answer3):
+        """
+        Purpose
+            This function will allow the user to reset their password if the forgot it.
+            
+        Args
+            username (str): user's login name
+            answer1 (str): user's answer to the first question, defaults to None if the user doesn't choose this question
+            answer2 (str): user's answer to the second question, defaults to None if the user doesn't choose this question
+            answer3 (str): user's answer to the third question, defaults to None if the user doesn't choose this question
+        
+        Returns
+            This will return a str with the newly generated password.
+            
+        Raises
+            ValueError if one or more answers does equal the answer we have on file.
+            
+        Side Effects
+            User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
+        """
