@@ -9,8 +9,6 @@ class PasswordGenerator:
     welcome_message = "Welcome to PasswordMaker!"
     print(welcome_message)
     
-    #methods: Args, Returns, Raises, and Side effects
-    
     def user_input(self, username, answer1 = None, answer2 = None, answer3 = None, hint_access_question, hint_access_answer):
         """
         Purpose
@@ -59,19 +57,19 @@ class PasswordGenerator:
         if # no questions are chosen, return:
             print("Select at least one question to answer.")
             
-    def password_hint(self, hint_request, proper_hint_response):
+    def password_hint(self, hint_request, expected_hint_response):
         """
         Purpose
             Prompts user to ask for a hint when they forget their password. 
             Gives them password hint if input matches hint_access_answer.
         Args
             hint_resquest (str): user should input "hint" or "help" in order to access hint process
-            proper_hint_response (str): value that user input should match in order to receive password hint
+            expected_hint_response (str): value that user input should match in order to receive password hint
         Returns
             if input matches hint_response, return password hint (the value of answer1, answer2, or answer3)
-            if input differs from proper_hint_response, return "try again, n attempts remaining" statement
+            if input differs from expected_hint_response, return "try again, n attempts remaining" statement
         Raises
-            ValueError if input differs from proper_hint_response
+            ValueError if input differs from expected_hint_response
         Side Effects
-            decrease attempts each time user inputs value different from proper_hint_response
+            decrease attempts each time user inputs value different from expected_hint_response
         """
