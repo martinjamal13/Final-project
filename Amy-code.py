@@ -1,4 +1,4 @@
-# Amy's section of code
+# Amy
 class PasswordGenerator:
     """ 
     Purpose
