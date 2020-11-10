@@ -1,4 +1,4 @@
-# Amy
+# Amy docstrings
 class PasswordGenerator:
     """ 
     Purpose
