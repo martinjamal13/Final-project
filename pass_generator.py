@@ -15,12 +15,12 @@ class PasswordGenerator:
             prompt user with questions to integrate memorable password segments, save username, and save hint question and answer
         Args
             username (str): user's login name
-            answer1 (str): user's answer to the first question, defaults to None if the user doesn't choose this question
-            answer2 (str): user's answer to the second question, defaults to None if the user doesn't choose this question
-            answer3 (str): user's answer to the third question, defaults to None if the user doesn't choose this question
-            hint_access_question (str): any question that user wants to display when they request a password hint
-            hint_access_answer (str): value that user should input in order to gain password hint. Password hint is answer1, answer2, or answer3.
-            password_hint (str): value is equivalent to answer1, answer2, or answer3, depending on which question is chosen for hint
+            answer1 (str): user's answer to the first question, defaults to None if corresponding question isn't chosen
+            answer2 (str): user's answer to the second question, defaults to None if corresponding question isn't chosen
+            answer3 (str): user's answer to the third question, defaults to None if corresponding question isn't chosen
+            hint_access_question (str): any question that user wants to be displayed when password hint is requested
+            hint_access_answer (str): input value required to gain password hint
+            password_hint (str): value is same as answer1, answer2, or answer3, depending on which question is chosen for hint
         Returns
             username (str): indicates who the password is created for
         Raises
