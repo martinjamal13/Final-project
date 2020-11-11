@@ -108,8 +108,8 @@ class PasswordGenerator:
         Side Effects
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
-        #Aroge Akhtar
-pass
+    
+     #Aroge Akhtar
 
 def generate_password(self, length, minAlphabets, minDigits):
 	"""
