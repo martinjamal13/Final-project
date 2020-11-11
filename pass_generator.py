@@ -110,7 +110,7 @@ class PasswordGenerator:
         """
 # Aroge doc strings
       #Aroge Akhtar
-pass
+
 
 def generate_password(self, length, minAlphabets, minDigits):
 	"""
