@@ -2,10 +2,9 @@
 class PasswordGenerator:
     """ 
     Attributes
-        welcome_message (str): displays an introductory message including the name of the program.
+        [name of object] ([insert type]): [insert what it does]
     """
-    welcome_message = "Welcome to PasswordMaker!"
-    print(welcome_message)
+    # Implement attribute that shows how is used_password() going to know if a particular password has been used before
     
     def user_input(self, username, answer1 = None, answer2 = None, answer3 = None, hint_access_question, hint_access_answer):
         """
