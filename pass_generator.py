@@ -1,8 +1,6 @@
 # Amy doc strings
 class PasswordGenerator:
     """ 
-    Purpose
-        Generates a strong password using user input and a mix of various types of characters.
     Attributes
         welcome_message (str): displays an introductory message including the name of the program.
     """
