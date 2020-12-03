@@ -6,53 +6,73 @@ class PasswordGenerator:
     """
     # Implement attribute that shows how is used_password() going to know if a particular password has been used before
     
-    def user_input(self, username, answer1 = None, answer2 = None, answer3 = None, hint_access_question, hint_access_answer):
+    def user_input(self, username):
         """
         Purpose
             prompt user with questions to integrate memorable password segments, save username, and save hint question and answer
         Args
             username (str): user's login name
-            answer1 (str): user's answer to the first question, defaults to None if corresponding question isn't chosen
-            answer2 (str): user's answer to the second question, defaults to None if corresponding question isn't chosen
-            answer3 (str): user's answer to the third question, defaults to None if corresponding question isn't chosen
-            hint_access_question (str): any question that user wants to be displayed when password hint is requested
-            hint_access_answer (str): input value required to gain password hint
-            password_hint (str): value is same as answer1, answer2, or answer3, depending on which question is chosen for hint
         Returns
             username (str): indicates who the password is created for
         Raises
             ValueError if none of the questions are answered
         Side Effects
             if no questions are answered, return "select a question" statement
-            stores values for answer1, answer2, answer3 in dictionary to use when generating password
-            stores values for hintquestion and hintanswer in dictionary to use in "reset password" method
+            stores values for question responses in list to use when generating password
+            stores values for hintquestion and hintanswer in dict to use in "reset password" method
         """
-        questions = {
-            '1':'What\'s your favorite planet?',
-            '2':'What is your favorite hobby?',
-            '3':'What\'s at the top of your bucket list?'
-            }
-        self.username = input("What is your username?")
-        print("These are the question you can choose from to create your password:")
-        print("1. What's your favorite planet? \n2. What is your favorite hobby? \n3. What's at the top of your bucket list?")
-        questionsChosen = input("Type the number of which questions you'd like. \nFor example, if you want questions 2 and 3, type \"23\"")
-        # only question 1 is chosen
-        if questionsChosen == 1:
-            # only question 2 is chosen
-            if questionsChosen == 2:
-                # only question 3 is chosen
-                if questionsChosen == 3:
-                    # questions 1 & 2 are chosen
-                    if questionsChosen == 12 or 21:  
-                        # questions 1 & 3 are chosen
-                        if questionsChosen == 13 or 31:
-                            # questions 2 & 3 are chosen
-                            if questionsChosen == 23 or 32:
-                                # all questions are chosen
-                                if questionsChosen == 123 or 132 or 213 or 231 or 321 or 312:
-                                    return questions.get(questionsChosen)
-        if # no questions are chosen, return:
-            print("Select at least one question to answer.")
+        self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
+        while True:
+            print(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
+            selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) Exit program\n")
+            if selection == "5":
+                print("Enjoy your password!")
+                break
+            elif selection == "2" or "3" or "4":
+                print("Coming soon.")
+                break
+            elif selection == "1":
+                print("\nWhich questions would you like to use to help create your password?")
+                print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
+
+                key = input("\nType the corresponding number here: ").strip()
+
+                options = ["What is your favorite planet?", "What is your favorite hobby?", "What's at the top of your bucket list?"]
+
+                # dict of user's questions and responses 
+                QnA = {}  
+                
+                if "1" in key:
+                    response1 = input("What is your favorite planet? ")
+                    QnA[options[0]] = response1
+                elif "2" in key:
+                    response2 = input("What is your favorite hobby? ")
+                    QnA[options[1]] = response2 
+                elif "3" in key:
+                    response3 = input("What's at the top of your bucket list? ")
+                    QnA[options[2]] = response3
+                else:
+                    print("Invalid input.")
+                    break
+                    
+                # list of user's responses to questions
+                responses = []
+                
+                for key in QnA.keys(): 
+                    responses.append(QnA[key])
+                    
+                print("\nGreat! These responses will make it easier for you to remember your password.\n")
+                hint_access_question = input("What would you like your password hint question to be? (Ex. What was the first song that I wrote?)\n")
+                hint_access_answer = input("What do you want to be the answer that grants access to a password hint? (Ex. Green Grass)\n")
+                
+                # dict of user's hint question and its answer to use for resetting password
+                hints = {}
+                hints[hint_access_question] = hint_access_answer
+                
+                # list of user's responses to password generator questions
+                password_hint = responses
+                if input("Would you like to return to the home screen? Press \'n\' to exit program, input any other key to return. ") == "n":
+                    break
             
     def password_hint(self, hint_request, expected_hint_response):
         """
@@ -129,7 +149,7 @@ def generate_password(self, length, minAlphabets, minDigits):
 	Side Effects
 		User doesn't get the choice of having the exact password that he wants.
 	"""
- def security_questions(self):
+def security_questions(self):
 	"""
 	Purpose
 		This function will prompt user with choice of recovering the password using security questions.
@@ -147,7 +167,7 @@ def generate_password(self, length, minAlphabets, minDigits):
 
 #Martha doc strings
 
-    def used_password(self,password):
+def used_password(self,password):
     """ 
     Purpose:
         Checks to see if password has been used by the user before. 
@@ -162,7 +182,7 @@ def generate_password(self, length, minAlphabets, minDigits):
         Records password if not used before. 
  """
 
-    def common_password(self,filename,password):
+def common_password(self,filename,password):
     """ 
     Purpose: 
         Reads a file to check how common the password is based on the password requirements. 
@@ -175,4 +195,5 @@ def generate_password(self, length, minAlphabets, minDigits):
        String if password is common or not common. 
        
     Side Effect: 
-        Records password if not common. 
+        Records password if not common.
+    """ 
