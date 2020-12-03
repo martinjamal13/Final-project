@@ -125,9 +125,7 @@ class PasswordGenerator:
         Side Effects
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
-# Aroge doc strings
-      #Aroge Akhtar
-
+     #Aroge Akhtar
 
 def generate_password(self, length, minAlphabets, minDigits):
 	"""
@@ -145,11 +143,28 @@ def generate_password(self, length, minAlphabets, minDigits):
 	Raises
 		ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
 					or if any of the argument is <= 0
-
-	Side Effects
-		User doesn't get the choice of having the exact password that he wants.
 	"""
-def security_questions(self):
+
+	        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
+			    raise ValueError("Invalid Arguments")
+		letters = string.ascii_letters
+		digits = [str(digit) for digit in range(0,10)]
+		alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
+		numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
+		password = list(alphabetComponent + numericComponent)
+		random.shuffle(password)
+		password = ''.join(password)
+		remainingComponent = list(letters) + list(digits)
+		password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
+		return password
+
+
+if __name__ == '__main__':
+	passwordGenerator = PasswordGenerator()
+	password = passwordGenerator.generate_password(8, 3, 3)
+	print (password)
+ 
+ def security_questions(self):
 	"""
 	Purpose
 		This function will prompt user with choice of recovering the password using security questions.
@@ -160,11 +175,7 @@ def security_questions(self):
 	Raises
 		ValueError 	if reponse to prompt is out of acceptable string (Y/N)
 					or if user answers incorrectly
-
-	Side Effects
-		User does not get to choose the new password
 	"""
-
 #Martha doc strings
 
 def used_password(self,password):
