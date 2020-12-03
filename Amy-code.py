@@ -127,10 +127,27 @@ def generate_password(self, length, minAlphabets, minDigits):
 	Raises
 		ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
 					or if any of the argument is <= 0
-
-	Side Effects
-		User doesn't get the choice of having the exact password that he wants.
 	"""
+
+	        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
+			    raise ValueError("Invalid Arguments")
+		letters = string.ascii_letters
+		digits = [str(digit) for digit in range(0,10)]
+		alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
+		numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
+		password = list(alphabetComponent + numericComponent)
+		random.shuffle(password)
+		password = ''.join(password)
+		remainingComponent = list(letters) + list(digits)
+		password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
+		return password
+
+
+if __name__ == '__main__':
+	passwordGenerator = PasswordGenerator()
+	password = passwordGenerator.generate_password(8, 3, 3)
+	print (password)
+ 
  def security_questions(self):
 	"""
 	Purpose
@@ -142,7 +159,4 @@ def generate_password(self, length, minAlphabets, minDigits):
 	Raises
 		ValueError 	if reponse to prompt is out of acceptable string (Y/N)
 					or if user answers incorrectly
-
-	Side Effects
-		User does not get to choose the new password
 	"""
