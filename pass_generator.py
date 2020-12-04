@@ -91,7 +91,7 @@ class PasswordGenerator:
             decrease attempts each time user inputs value different from expected_hint_response
         """
 # Jamal doc strings
-    def recent_password(self, start_date = 90):
+    def recent_password(self):
         """
         Purpose
             This function will count down the days until a new password will need to be generated and give an update everyday    
@@ -102,6 +102,17 @@ class PasswordGenerator:
             returns the new date so that it continously decreases by one each day. 
         Side effects
             User has no input here and consequently have no control over how often the password will expire.
+            
+        expire_day = datetime.date.today() + datetime.timedelta(90)
+        days_left = expire_day - current_day
+        while current_day != expire_day:
+            current_day+=datetime.timedelta(1)
+            days_left -=datetime.timedelta(1)
+            if current_day == expire_day:
+                print("you have to generate a new password today!")
+            else:
+                print(f"you have {abs(days_left)} until you will need a new password")
+                break
         
         """
         
@@ -125,6 +136,14 @@ class PasswordGenerator:
         Side Effects
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
+
+    def reset_password(self,username, answer1, answer2, answer3):
+        if answer1 == responses[0] & answer2 == responses[1] & answer3 == responses[2]:
+            generate_password()
+        else:
+            raise ValueError ("One or more of your answers were incorrect please try again")
+     
+     
      #Aroge Akhtar
 
 def generate_password(self, length, minAlphabets, minDigits):
