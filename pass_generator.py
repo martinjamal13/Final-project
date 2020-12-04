@@ -155,7 +155,7 @@ class PasswordGenerator:
      
      #Aroge Akhtar
 
-    def generate_password(self, length, minAlphabets, minDigits):
+    def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
         """
         Purpose
             This function will generate a random password of given length with a combination of alphabets and numbers
@@ -196,13 +196,15 @@ def parse_args(arglist):
 
 def main(username):
     trial = PasswordGenerator(username)
-    return trial
+    print(trial.user_input(username))
+
 
 if __name__ == '__main__':
-	#passwordGenerator = PasswordGenerator()
-	#password = passwordGenerator.generate_password(8, 3, 3)
     args = parse_args(sys.argv[1:])
-    print(main(args.username))
+    main(args.username)
+	#passwordGenerator = PasswordGenerator(username)
+	#password = passwordGenerator.generate_password()
+    
 	#print (password)
  
 def security_questions(self):
