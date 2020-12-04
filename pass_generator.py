@@ -64,28 +64,16 @@ class PasswordGenerator:
         #self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
         while True:
             print(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
-            selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) Exit program\n")
-            if selection == "5":
+            selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) How days until you need to change your password\n6) Exit program\n")
+            if selection == "6":
                 print("Enjoy your password!")
                 break
             
             elif selection == "1":
                 print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
-                #print("\nWhich questions would you like to use to help create your password?")
-                #print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
-                break 
-             
-            elif selection == "2":
-                PasswordGenerator.reset_password(self)
-                #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
-                 
-            elif selection == "3": 
-                PasswordGenerator.used_password(self)
-                break
-            elif selection == "4":
-                print("Coming soon.")
-                break
-
+                print("\nWhich questions would you like to use to help create your password?")
+                print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
+                
                 key = input("\nType the corresponding number here: ").strip()
 
                 options = ["What is your favorite planet?", "What is your favorite hobby?", "What's at the top of your bucket list?"]
@@ -111,6 +99,7 @@ class PasswordGenerator:
                 
                 for key in QnA.keys(): 
                     responses.append(QnA[key])
+                    return responses
                     
                 print("\nGreat! These responses will make it easier for you to remember your password.\n")
                 hint_access_question = input("What would you like your password hint question to be? (Ex. What was the first song that I wrote?)\n")
@@ -123,7 +112,23 @@ class PasswordGenerator:
                 # list of user's responses to password generator questions
                 password_hint = responses
                 if input("Would you like to return to the home screen? Press \'n\' to exit program, input any other key to return. ") == "n":
-                    break
+                    break 
+                
+                #return responses
+             
+            elif selection == "2":
+                PasswordGenerator.reset_password(self)
+                #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
+                 
+            elif selection == "3": 
+                PasswordGenerator.used_password(self)
+                break
+            elif selection == "4":
+                print("Coming soon.")
+                break
+            elif selection == "5":
+                PasswordGenerator.recent_password(self)
+
                 
     def password_hint(self, hint_request, expected_hint_response):
         """
@@ -153,7 +158,8 @@ class PasswordGenerator:
             returns the new date so that it continously decreases by one each day. 
         Side effects
             User has no input here and consequently have no control over how often the password will expire.
-            
+        """
+        current_day = datetime.date.today()  
         expire_day = datetime.date.today() + datetime.timedelta(90)
         days_left = expire_day - current_day
         while current_day != expire_day:
@@ -165,7 +171,7 @@ class PasswordGenerator:
                 print(f"you have {abs(days_left)} until you will need a new password")
                 break
         
-        """
+        
         
     def reset_password(self):
         """
