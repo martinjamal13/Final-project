@@ -1,7 +1,9 @@
-# Amy doc strings
 import datetime
 import sys
 import argparse
+import hashlib
+import random
+import string
 
 class PasswordGenerator:
     """ 
@@ -13,6 +15,36 @@ class PasswordGenerator:
     def __init__(self, username):
         self.username = username
     
+    def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
+        """
+        Purpose
+            This function will generate a random password of given length with a combination of alphabets and numbers
+
+        Args
+            length (int) - length of password
+            minAlphabet (int) - minimum number of alphabets required in the password
+            minDigits (int) - minimun number of digits required in the password
+
+        Returns
+            This will return a string of given length and minimum occurence of alphabets and digits.
+
+        Raises
+            ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
+                        or if any of the argument is <= 0
+        """
+
+        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
+            raise ValueError("Invalid Arguments")
+        letters = string.ascii_letters
+        digits = [str(digit) for digit in range(0,10)]
+        alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
+        numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
+        password = list(alphabetComponent + numericComponent)
+        random.shuffle(password)
+        password = ''.join(password)
+        remainingComponent = list(letters) + list(digits)
+        password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
+        return password
 
     def user_input(self, username):
         """
@@ -36,12 +68,23 @@ class PasswordGenerator:
             if selection == "5":
                 print("Enjoy your password!")
                 break
-            elif selection == "2" or "3" or "4":
+            
+            elif selection == "1":
+                print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
+                #print("\nWhich questions would you like to use to help create your password?")
+                #print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
+                break 
+             
+            elif selection == "2":
+                PasswordGenerator.reset_password(self)
+                #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
+                 
+            elif selection == "3": 
+                PasswordGenerator.used_password(self)
+                break
+            elif selection == "4":
                 print("Coming soon.")
                 break
-            elif selection == "1":
-                print("\nWhich questions would you like to use to help create your password?")
-                print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
 
                 key = input("\nType the corresponding number here: ").strip()
 
@@ -81,7 +124,7 @@ class PasswordGenerator:
                 password_hint = responses
                 if input("Would you like to return to the home screen? Press \'n\' to exit program, input any other key to return. ") == "n":
                     break
-            
+                
     def password_hint(self, hint_request, expected_hint_response):
         """
         Purpose
@@ -98,7 +141,7 @@ class PasswordGenerator:
         Side Effects
             decrease attempts each time user inputs value different from expected_hint_response
         """
-# Jamal doc strings
+
     def recent_password(self):
         """
         Purpose
@@ -153,40 +196,61 @@ class PasswordGenerator:
             raise ValueError ("One or more of your answers were incorrect please try again")
      
      
-     #Aroge Akhtar
-
-    def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
+     
+    
+    def used_password(self):  
         """
-        Purpose
-            This function will generate a random password of given length with a combination of alphabets and numbers
-
-        Args
-            length (int) - length of password
-            minAlphabet (int) - minimum number of alphabets required in the password
-            minDigits (int) - minimun number of digits required in the password
-
-        Returns
-            This will return a string of given length and minimum occurence of alphabets and digits.
-
-        Raises
-            ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
-                        or if any of the argument is <= 0
+    Checks to see if the generated password has been used before by reading the created file into a list
+    ran through an if statement.
+    
+    Return:
+    If password has been used before will return "Password has been used before", and if not it 
+    will return "Password has not been used before.
+     
+    Side Effect: 
+    Passwords in the file and the generated password have been hashed.
         """
+         
+        password_list = open("password_file").readlines()
+        gen_password = input("Input generated password here.")
+        new_password = hashlib.sha256(gen_password.encode("utf-8"))
+        new_hash = new_password.hexdigest()
+        if new_hash in password_list: 
+            print ("Password has been used before.")
+        else:
+            print("Password has not been used before.")
+    
 
-        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
-            raise ValueError("Invalid Arguments")
-        letters = string.ascii_letters
-        digits = [str(digit) for digit in range(0,10)]
-        alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
-        numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
-        password = list(alphabetComponent + numericComponent)
-        random.shuffle(password)
-        password = ''.join(password)
-        remainingComponent = list(letters) + list(digits)
-        password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
-        return password
+    def common_password(self,filename):
+        """
+    Checks to see if the password generated is common by reading a 
+    txt file of the most common passwords into a list. It will prompt 
+    the user to input the generated password and run through each password 
+    in the list.
+    
+    Args:
+        filename (str): indicates the path to a file to be read in.
+    
+    Returns:
+        Will return Password is Common if the inputed password matches in the list 
+        and Password is not Common if it does not match.
+        
+    Side Effect: 
+        Will record password if password has not been used yet. 
 
+        """
+        with open (filename, "r", encoding = "utf-8", errors="ignore") as f:
+                content = f.read()
+                content_list = content.split(",")
+                gen_password = input("Input generated password here.")
+                for x in gen_password:
+                    for i in content_list:
+                        if x == i:
+                            print( "Password is common")
+                else: 
+                    print("Password is not common")
 
+    
 def parse_args(arglist):
     """ This function parses the command-line arguements"""
     parser = argparse.ArgumentParser()
@@ -204,7 +268,6 @@ if __name__ == '__main__':
     main(args.username)
 	#passwordGenerator = PasswordGenerator(username)
 	#password = passwordGenerator.generate_password()
-    
 	#print (password)
  
 def security_questions(self):
@@ -218,7 +281,7 @@ def security_questions(self):
 		User does not get to choose the new password
 	"""
 
-#Martha doc strings
+
 
 def used_password(self,password):
     """ 
@@ -249,3 +312,5 @@ def common_password(self,filename,password):
     Side Effect: 
         Records password if not common.
     """ 
+    
+   
