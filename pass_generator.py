@@ -1,4 +1,8 @@
 # Amy doc strings
+import datetime
+import sys
+import argparse
+
 class PasswordGenerator:
     """ 
     Attributes
@@ -6,6 +10,10 @@ class PasswordGenerator:
     """
     # Implement attribute that shows how is used_password() going to know if a particular password has been used before
     
+    def __init__(self, username):
+        self.username = username
+    
+
     def user_input(self, username):
         """
         Purpose
@@ -21,7 +29,7 @@ class PasswordGenerator:
             stores values for question responses in list to use when generating password
             stores values for hintquestion and hintanswer in dict to use in "reset password" method
         """
-        self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
+        #self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
         while True:
             print(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
             selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) Exit program\n")
@@ -137,8 +145,11 @@ class PasswordGenerator:
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
 
-    def reset_password(self,username, answer1, answer2, answer3):
-        if answer1 == responses[0] & answer2 == responses[1] & answer3 == responses[2]:
+    def reset_password(self):
+        answer1 = input(" Enter your answer to your first question ")
+        answer2 = input(" Enter your answer to your second question ")
+        answer3 = input(" Enter your answer to you third question ")
+        if answer1.lower == responses[0].lower & answer2.lower == responses[1].lower & answer3.lower == responses[2].lower:
             generate_password()
         else:
             raise ValueError ("One or more of your answers were incorrect please try again")
@@ -146,84 +157,53 @@ class PasswordGenerator:
      
      #Aroge Akhtar
 
-def generate_password(self, length, minAlphabets, minDigits):
-	"""
-	Purpose
-		This function will generate a random password of given length with a combination of alphabets and numbers
+    def generate_password(self, length, minAlphabets, minDigits):
+        """
+        Purpose
+            This function will generate a random password of given length with a combination of alphabets and numbers
 
-	Args
-		length (int) - length of password
-		minAlphabet (int) - minimum number of alphabets required in the password
-		minDigits (int) - minimun number of digits required in the password
+        Args
+            length (int) - length of password
+            minAlphabet (int) - minimum number of alphabets required in the password
+            minDigits (int) - minimun number of digits required in the password
 
-	Returns
-		This will return a string of given length and minimum occurence of alphabets and digits.
+        Returns
+            This will return a string of given length and minimum occurence of alphabets and digits.
 
-	Raises
-		ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
-					or if any of the argument is <= 0
-	"""
+        Raises
+            ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
+                        or if any of the argument is <= 0
+        """
 
-	        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
-			    raise ValueError("Invalid Arguments")
-		letters = string.ascii_letters
-		digits = [str(digit) for digit in range(0,10)]
-		alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
-		numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
-		password = list(alphabetComponent + numericComponent)
-		random.shuffle(password)
-		password = ''.join(password)
-		remainingComponent = list(letters) + list(digits)
-		password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
-		return password
+        if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
+            raise ValueError("Invalid Arguments")
+        letters = string.ascii_letters
+        digits = [str(digit) for digit in range(0,10)]
+        alphabetComponent = ''.join(random.choice(letters) for i in range(minAlphabets))
+        numericComponent = ''.join(str(random.choice(digits)) for i in range(minDigits))
+        password = list(alphabetComponent + numericComponent)
+        random.shuffle(password)
+        password = ''.join(password)
+        remainingComponent = list(letters) + list(digits)
+        password += ''.join(random.choice(remainingComponent) for i in range(length - (minAlphabets+minDigits)))
+        return password
 
+
+def parse_args(arglist):
+    """ This function parses the command-line arguements"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('username', help = "enter your username")
+    args = parser.parse_args(arglist)
+    return args
+
+def main(username):
+    trial = PasswordGenerator(username)
+    return trial
 
 if __name__ == '__main__':
-	passwordGenerator = PasswordGenerator()
-	password = passwordGenerator.generate_password(8, 3, 3)
-	print (password)
+	#passwordGenerator = PasswordGenerator()
+	#password = passwordGenerator.generate_password(8, 3, 3)
+    args = parse_args(sys.argv[1:])
+    print(main(args.username))
+	#print (password)
  
- def security_questions(self):
-	"""
-	Purpose
-		This function will prompt user with choice of recovering the password using security questions.
-
-	Returns
-		The newly generated password
-
-	Raises
-		ValueError 	if reponse to prompt is out of acceptable string (Y/N)
-					or if user answers incorrectly
-	"""
-#Martha doc strings
-
-def used_password(self,password):
-    """ 
-    Purpose:
-        Checks to see if password has been used by the user before. 
-        
-    Args: 
-         password (str): password that was generated by password_gen.
-         
-    Return: 
-        String if password has been used before or not.
-        
-    Side Effect: 
-        Records password if not used before. 
- """
-
-def common_password(self,filename,password):
-    """ 
-    Purpose: 
-        Reads a file to check how common the password is based on the password requirements. 
-        
-    Args: 
-        filename (str): indicates the path to a file to be read in.
-        password (str): password that was generated by password_gen.
-        
-    Returns: 
-       String if password is common or not common. 
-       
-    Side Effect: 
-        Records password if not common.
-    """ 
