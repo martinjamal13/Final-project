@@ -169,6 +169,11 @@ class PasswordGenerator:
             ValueError if input differs from expected_hint_response
         Side Effects
             decrease attempts each time user inputs value different from expected_hint_response
+        
+        # partial code
+        user_forgot("Forgot password?\nType "hint" to access your password hint question.\nType "reset" to reset your password.")
+        if "1" in user_forgot:
+            hint_request = input(")
         """
 
     def recent_password(self):
