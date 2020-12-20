@@ -10,7 +10,8 @@ class PasswordGenerator:
     Attributes
         [name of object] ([insert type]): [insert what it does]
     """
-    # Implement attribute that shows how is used_password() going to know if a particular password has been used before
+    # Implement attribute that shows how is used_password() going to know if a -
+    # - particular password has been used before
     
     def __init__(self, username):
         self.username = username
@@ -18,19 +19,21 @@ class PasswordGenerator:
     def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
         """
         Purpose
-            This function will generate a random password of given length with a combination of alphabets and numbers
+            This function will generate a random password of given length with a
+            combination of alphabets and numbers
 
         Args
             length (int) - length of password
-            minAlphabet (int) - minimum number of alphabets required in the password
+            minAlphabet (int) - minimum number of alphabets required in password
             minDigits (int) - minimun number of digits required in the password
 
         Returns
-            This will return a string of given length and minimum occurence of alphabets and digits.
+            This will return a string of given length and minimum occurence of 
+            alphabets and digits.
 
         Raises
-            ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
-                        or if any of the argument is <= 0
+            ValueError if length is smaller than the sum of minAlphabets and 
+            minDigits or if any of the argument is <= 0
         """
 
         if length <= 0 or minAlphabets <= 0 or minDigits <= 0 or (minAlphabets + minDigits) >= length:
@@ -49,7 +52,8 @@ class PasswordGenerator:
     def user_input(self, username):
         """
         Purpose
-            prompt user with questions to integrate memorable password segments, save username, and save hint question and answer
+            prompt user with questions to integrate memorable password segments,
+            save username, and save hint question and answer
         Args
             username (str): user's login name
         Returns
@@ -58,25 +62,41 @@ class PasswordGenerator:
             ValueError if none of the questions are answered
         Side Effects
             if no questions are answered, return "select a question" statement
-            stores values for question responses in list to use when generating password
-            stores values for hintquestion and hintanswer in dict to use in "reset password" method
+            stores values for question responses in list to use when generating 
+            password
+            stores values for hintquestion and hintanswer in dict to use in 
+            "reset password" method
         """
-        #self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
+        print("PasswordGenerator, the internet's most secure password generator.")
+        self.username = input("Username: ")
         while True:
-            print(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
-            selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) How days until you need to change your password\n6) Exit program\n")
-            if selection == "6":
-                print("Enjoy your password!")
-                break
+            selection = input(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
+            option1 = "1) Generate password"
+            option2 = "2) Reset password"
+            option3 = "3) Check if password has been used before"
+            option4 = "4) Check if my password is common"
+            option5 = "5) How days until you need to change your password"
+            option6 = "6) Exit program"
             
-            elif selection == "1":
+    def selectedOption():
+        # take input from user_input [have not done yet]
+        if selection == "6":
+            print("Enjoy your password!")
+            break
+        elif selection == "1":
                 print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
-                print("\nWhich questions would you like to use to help create your password?")
-                print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
+                print("Which questions would you like to use to help create your password?")
+                print("1) What's your favorite planet?
+                print("2) What is your favorite hobby?"
+                print("3) What's at the top of your bucket list?")
                 
                 key = input("\nType the corresponding number here: ").strip()
 
-                options = ["What is your favorite planet?", "What is your favorite hobby?", "What's at the top of your bucket list?"]
+                options = [
+                    "What is your favorite planet?", 
+                    "What is your favorite hobby?", 
+                    "What's at the top of your bucket list?"
+                ]
 
                 # dict of user's questions and responses 
                 QnA = {}  
@@ -102,16 +122,20 @@ class PasswordGenerator:
                     return responses
                     
                 print("\nGreat! These responses will make it easier for you to remember your password.\n")
-                hint_access_question = input("What would you like your password hint question to be? (Ex. What was the first song that I wrote?)\n")
-                hint_access_answer = input("What do you want to be the answer that grants access to a password hint? (Ex. Green Grass)\n")
+                print("What would you like your password hint question to be?")
+                hint_access_q = input("Ex. What was the first song that I wrote?")
+                print("What do you want to be the answer that grants access to a password hint?")
+                hint_access_ans = input("Ex. Green Grass\n")
                 
-                # dict of user's hint question and its answer to use for resetting password
+                # dict of user's hint question and its answer to use for -
+                # - resetting password
                 hints = {}
-                hints[hint_access_question] = hint_access_answer
+                hints[hint_access_q] = hint_access_ans
                 
                 # list of user's responses to password generator questions
                 password_hint = responses
-                if input("Would you like to return to the home screen? Press \'n\' to exit program, input any other key to return. ") == "n":
+                print("Would you like to return to the home screen?")
+                if input("Press \'n\' to exit program, input any other key to return. ") == "n":
                     break 
                 
                 #return responses
@@ -134,7 +158,7 @@ class PasswordGenerator:
         """
         Purpose
             Prompts user to ask for a hint when they forget their password. 
-            Gives them password hint if input matches hint_access_answer.
+            Gives them password hint if input matches hint_access_ans.
         Args
             hint_resquest (str): user should input "hint" or "help" in order to access hint process
             expected_hint_response (str): value that user input should match in order to receive password hint
