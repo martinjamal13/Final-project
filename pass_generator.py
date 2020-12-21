@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import datetime
 import sys
 import argparse
@@ -347,5 +348,3 @@ def common_password(self,filename,password):
     Side Effect: 
         Records password if not common.
     """ 
-    
-   
