@@ -105,29 +105,29 @@ class PasswordGenerator:
         if "1" in key:
             response1 = input("What is your favorite planet? ")
             QnA[options[0]] = response1
-        elif "2" in key:
+        if "2" in key:
             response2 = input("What is your favorite hobby? ")
             QnA[options[1]] = response2 
-        elif "3" in key:
+        if "3" in key:
             response3 = input("What's at the top of your bucket list? ")
             QnA[options[2]] = response3
-        else:
+        while key !="1" or key !="2" or key !="3":
             print("Invalid input.")
+            quit()
                     
-        # list of user's responses to questions
-        responses = []
-                
-        for key in QnA.keys(): 
-            responses.append(QnA[key])
-            return responses
-                    
-        print("\nGreat!")
+        print("Great!")
         print("These responses will make it easier for you to remember your password.")
         print("What would you like your password hint question to be?")
         hintAccessQ = input("Ex. What was the first song that I wrote?\n")
         print("What do you want to be the answer that grants access to a password hint?")
         hintAccessAns = input("Ex. Summer Song\n")
-                
+        
+        # list of user's responses to questions
+        responses = []        
+        for key in QnA.keys(): 
+            responses.append(QnA[key])
+            return responses
+
         # dict of user's hint question and its answer to use for resetting password
         hints = {}
         hints[hintAccessQ] = hintAccessAns
