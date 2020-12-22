@@ -85,7 +85,6 @@ class PasswordGenerator:
                 self.password_hint()
             elif selection == "3":
                 self.reset_password()
-            #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
             elif selection == "4": 
                 self.used_password()
             elif selection == "5":
