@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> dfb486ad2d69ed46d0d633f85268a0f97ba0818b
 import datetime
 import sys
 import argparse
