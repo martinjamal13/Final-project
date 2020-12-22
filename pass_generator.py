@@ -65,7 +65,7 @@ class PasswordGenerator:
             "reset password" method
         """
         print("PasswordGenerator, the internet's most secure password generator.")
-        self.username = input("Username: ")
+        self.username = username
         while True:
             print(f"\nHi {username}, what would you like to do?")
             selection = input("(1/2/3/4/5)")
