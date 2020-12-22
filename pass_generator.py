@@ -15,7 +15,7 @@ class PasswordGenerator:
     def __init__(self, username):
         self.username = username
         self.start_day = datetime.datetime.now() 
-        
+        self.hints = {}
     
     def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
         """
@@ -140,8 +140,9 @@ class PasswordGenerator:
             self.responses = responses
             #return responses
         # dict of user's hint question and its answer to use for resetting password
-        hints = {}
-        hints[hintAccessQ] = hintAccessAns
+        #hints = {}
+        
+        self.hints[hintAccessQ] = hintAccessAns
                 
         print("Would you like to return to the home screen?")
         if input("Press \'n\' to exit program, input any other key to return. ") == "n":
@@ -161,18 +162,21 @@ class PasswordGenerator:
         Side Effects
             decrease attempts each time user inputs value different from hintAccessAns
         """
-        user_forgot = input("Forgot password\nEnter 1 to access your password hint question.\nEnter 2 to reset your password.")
-        hint_request = self.selection1
+        user_forgot = input("Forgot password\nEnter 1 to access your password hint question.\nEnter 2 to try again")
+        attempts= 0
         if "1" in user_forgot:
-            hint_request = input("hint")
-        if "2" in user_forgot:
-            expected_hint_response = input("reset")
+            while attempts < 3:
+                hint = input("hintAccessAns")
+                #return self.hints
+                if hint in self.hints:
+                    print ("hint matches") 
+                    break
+                else:
+                    attempts += 1
+                    print (f"try again, {3 - attempts} attempts remaining")
+        print("Attempt exceeded")
             
-        if user_forgot<3:
-            print("Try again")
-        else:
-            return ValueError("Exceed more than 3 attempt")
-        print("placeholder for futher code")
+        
 
     def recent_password(self):
         """
