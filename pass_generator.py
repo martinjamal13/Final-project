@@ -105,13 +105,13 @@ class PasswordGenerator:
         if "1" in key:
             response1 = input("What is your favorite planet? ")
             QnA[options[0]] = response1
-        if "2" in key:
+        elif "2" in key:
             response2 = input("What is your favorite hobby? ")
             QnA[options[1]] = response2 
-        if "3" in key:
+        elif "3" in key:
             response3 = input("What's at the top of your bucket list? ")
             QnA[options[2]] = response3
-        while key !="1" or key !="2" or key !="3":
+        else:
             print("Invalid input.")
             quit()
                     
