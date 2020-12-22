@@ -160,12 +160,18 @@ class PasswordGenerator:
             ValueError if input differs from hintAccessAns
         Side Effects
             decrease attempts each time user inputs value different from hintAccessAns
-            
-        # partial code
-        user_forgot("Forgot password?\nType "hint" to access your password hint question.\nType "reset" to reset your password.")
-        if "1" in user_forgot:
-            hint_request = input(")
         """
+        user_forgot = input("Forgot password\nEnter 1 to access your password hint question.\nEnter 2 to reset your password.")
+        hint_request = self.selection1
+        if "1" in user_forgot:
+            hint_request = input("hint")
+        if "2" in user_forgot:
+            expected_hint_response = input("reset")
+            
+        if user_forgot<3:
+            print("Try again")
+        else:
+            return ValueError("Exceed more than 3 attempt")
         print("placeholder for futher code")
 
     def recent_password(self):
