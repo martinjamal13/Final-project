@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfb486ad2d69ed46d0d633f85268a0f97ba0818b
 import datetime
 import sys
 import argparse
@@ -274,15 +278,14 @@ class PasswordGenerator:
 
         """
         with open (filename, "r", encoding = "utf-8", errors="ignore") as f:
-                content = f.read()
-                content_list = content.split(",")
-                gen_password = input("Input generated password here.")
-                for x in gen_password:
-                    for i in content_list:
-                        if x == i:
-                            print( "Password is common")
-                else: 
-                    print("Password is not common")
+            content = f.read()
+            content_list = content.split(",")
+            gen_password = input("Input generated password here.")
+            if gen_password in content_list:
+                print("password is common")
+            else: 
+                print("password is not common")
+                content_list.append(gen_password)
 
     
 def parse_args(arglist):
