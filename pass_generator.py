@@ -67,14 +67,14 @@ class PasswordGenerator:
         print("PasswordGenerator, the internet's most secure password generator.")
         self.username = username
         while True:
-            print(f"\nHi {username}, what would you like to do?")
-            selection = input("(1/2/3/4/5)")
+            print(f"Hi {username}, what would you like to do?")
             print("1) Generate password")
             print("2) Reset password")
             print("3) Check if password has been used before")
             print("4) Check if my password is common")
-            print("5) How days until you need to change your password")
+            print("5) Check how days until I need to change my password")
             print("6) Exit program")
+            selection = input("(1/2/3/4/5/6) ")
             
             if selection == "6":
                 print("Enjoy your password!")
@@ -91,7 +91,7 @@ class PasswordGenerator:
         print("2) What is your favorite hobby?")
         print("3) What's at the top of your bucket list?")
                 
-        key = input("\nType the corresponding number here: ").strip()
+        key = input("Type the corresponding number here: ").strip()
 
         options = [ 
                     "What is your favorite planet?", 
