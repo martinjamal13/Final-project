@@ -14,6 +14,8 @@ class PasswordGenerator:
     
     def __init__(self, username):
         self.username = username
+        self.start_day = datetime.datetime.now() 
+        
     
     def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
         """
@@ -131,10 +133,12 @@ class PasswordGenerator:
         print("What do you want to be the answer that grants access to a password hint?")
         hintAccessAns = input("Ex. Summer Song\n")
         # list of user's responses to questions
+        
         responses = []
         for key in QnA.keys(): 
             responses.append(QnA[key])
-            return responses
+            self.responses = responses
+            #return responses
         # dict of user's hint question and its answer to use for resetting password
         hints = {}
         hints[hintAccessQ] = hintAccessAns
@@ -142,8 +146,7 @@ class PasswordGenerator:
         print("Would you like to return to the home screen?")
         if input("Press \'n\' to exit program, input any other key to return. ") == "n":
             quit()
-                
-        #return responses
+        return self.responses
                 
     def password_hint(self):
         """
@@ -176,18 +179,17 @@ class PasswordGenerator:
             returns the new date so that it continously decreases by one each day. 
         Side effects
             User has no input here and consequently have no control over how often the password will expire.
-        """
-        current_day = datetime.date.today()  
-        expire_day = datetime.date.today() + datetime.timedelta(90)
-        days_left = expire_day - current_day
-        while current_day != expire_day:
-            current_day+=datetime.timedelta(1)
-            days_left -=datetime.timedelta(1)
-            if current_day == expire_day:
-                print("you have to generate a new password today!")
-            else:
-                print(f"you have {abs(days_left)} until you will need a new password")
-                break
+        """ 
+        expire_day = self.start_day + datetime.timedelta(90)
+        days_left = expire_day - datetime.datetime.now()
+       # while self.current_day != expire_day:
+           # self.current_day+=datetime.timedelta(1)
+            #days_left -=datetime.timedelta(1)
+        if self.start_day == expire_day:
+            print("you have to generate a new password today!")
+        else:
+            print(f"you have {abs(days_left)} until you will need a new password")
+            
         
     def reset_password(self):
         """
@@ -205,13 +207,13 @@ class PasswordGenerator:
         Side Effects
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
-        answer1 = input(" Enter your answer to your first question ")
-        answer2 = input(" Enter your answer to your second question ")
-        answer3 = input(" Enter your answer to you third question ")
-        if answer1.lower == responses[0].lower & answer2.lower == responses[1].lower & answer3.lower == responses[2].lower:
-            generate_password()
+    
+        answer1 = input("Enter your answer to your password hint question ")
+        if answer1 == self.responses[0]:
+            print("your new password is: ", self.generate_password(8,3,3))
         else:
             raise ValueError ("One or more of your answers were incorrect please try again")
+            
      
      
      
