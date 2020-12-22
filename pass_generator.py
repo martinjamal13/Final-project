@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import datetime
 import sys
 import argparse
@@ -81,14 +80,15 @@ class PasswordGenerator:
                 print("Enjoy your password!")
                 break
             elif selection == "1":
+                self.input1to5()
                 #redirect to method 'input1to5'
 
     # if user selects options 1 through 5
-    def input1to5():
+    def input1to5(self):
         print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
         print("Which questions would you like to use to help create your password?")
-        print("1) What's your favorite planet?
-        print("2) What is your favorite hobby?"
+        print("1) What's your favorite planet?")
+        print("2) What is your favorite hobby?")
         print("3) What's at the top of your bucket list?")
                 
         key = input("\nType the corresponding number here: ").strip()
@@ -113,7 +113,6 @@ class PasswordGenerator:
             QnA[options[2]] = response3
         else:
             print("Invalid input.")
-            break
                     
         # list of user's responses to questions
         responses = []
@@ -136,22 +135,21 @@ class PasswordGenerator:
         # list of user's responses to password generator questions
         password_hint = responses
         print("Would you like to return to the home screen?")
-        if input("Press \'n\' to exit program, input any other key to return. ") == "n":
+        while input("Press \'n\' to exit program, input any other key to return. ") == "n":
             break
                 
         #return responses
              
-        elif selection == "2":
+        while selection == "2":
             PasswordGenerator.reset_password(self)
             #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
-                 
-        elif selection == "3": 
+        while selection == "3": 
             PasswordGenerator.used_password(self)
             break
-        elif selection == "4":
+        while selection == "4":
             print("Coming soon.")
             break
-        elif selection == "5":
+        while selection == "5":
             PasswordGenerator.recent_password(self)
 
                 
