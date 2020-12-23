@@ -1,0 +1,55 @@
+import builtins
+from unittest import mock
+
+from pass_generator import user_input
+
+def test_user_input(capsys):
+    with mock.patch("builtins.input", 
+                    side_effect=["7"]):
+        assert selection1() == "Enjoy your password!"
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["1"]):
+        assert selection1() == self.selection1()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["2"]):
+        assert selection1() == self.password_hint()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["3"]):
+        assert selection1() == self.reset_password()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["4"]):
+        assert selection1() == self.used_password()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["5"]):
+        assert selection1() == self.common_password()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
+    with mock.patch("builtins.input",
+                    side_effect=["6"]):
+        assert selection1() == self.recent_password()
+        captured = capsys.readouterr()
+        assert captured.out == (
+            "Invalid input.\n"
+        )
