@@ -6,12 +6,7 @@ import random
 import string
 
 class PasswordGenerator:
-    """ 
-    Attributes
-        [name of object] ([insert type]): [insert what it does]
-    """
-    # Implement attribute that shows how is used_password() going to know if a particular password has been used before
-    
+   
     def __init__(self, username):
         self.username = username
         self.start_day = datetime.datetime.now() 
