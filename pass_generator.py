@@ -14,20 +14,19 @@ class PasswordGenerator:
     
     def __init__(self, username):
         self.username = username
+        self.start_day = datetime.datetime.now() 
+        self.hints = {}
     
     def generate_password(self, length = 8, minAlphabets = 5, minDigits = 5):
         """
         Purpose
             This function will generate a random password of given length with a combination of alphabets and numbers
-
         Args
             length (int) - length of password
             minAlphabet (int) - minimum number of alphabets required in the password
             minDigits (int) - minimun number of digits required in the password
-
         Returns
             This will return a string of given length and minimum occurence of alphabets and digits.
-
         Raises
             ValueError 	if length is smaller than the sum of minAlphabets and minDigits 
                         or if any of the argument is <= 0
@@ -65,6 +64,7 @@ class PasswordGenerator:
             "reset password" method
         """
         print("PasswordGenerator, the internet's most secure password generator.")
+<<<<<<< HEAD
         self.username = input("Username: ")
         while True:
             print(f"\nHi {username}, what would you like to do?")
@@ -152,28 +152,128 @@ class PasswordGenerator:
             break
         elif selection == "5":
             PasswordGenerator.recent_password(self)
+=======
+        self.username = username
+        while True:
+            print(f"Hi {username}, what would you like to do?")
+            print("1) Generate password")
+            print("2) Password hint")
+            print("3) Reset password")
+            print("4) Check if password has been used before")
+            print("5) Check if my password is common")
+            print("6) Check how days until I need to change my password")
+            print("7) Exit program")
+            selection = input("(1/2/3/4/5/6/7) ")
+            
+            if selection == "7":
+                print("Enjoy your password!")
+                break
+            elif selection == "1":
+                self.selection1()
+            elif selection == "2":
+                self.password_hint()
+            elif selection == "3":
+                self.reset_password()
+            elif selection == "4": 
+                self.used_password()
+            elif selection == "5":
+                self.common_password()
+            elif selection == "6":
+                self.recent_password()
+            else:
+                print("Invalid input.")
 
+    # if user selects option 1
+    def selection1(self):
+        print(self.generate_password(8,3,3)) 
+        print("Which questions would you like to use to help create your password?")
+        print("1) What's your favorite planet?")
+        print("2) What is your favorite hobby?")
+        print("3) What's at the top of your bucket list?")   
+
+        key = input("Type the corresponding number here: ").strip()
+
+        options = [ 
+                    "What is your favorite planet?", 
+                    "What is your favorite hobby?", 
+                    "What's at the top of your bucket list?"
+                ]
+        # dict of user's questions and responses 
+        QnA = {}  
                 
-    def password_hint(self, hint_request, expected_hint_response):
+        if "1" in key:
+            response1 = input("What is your favorite planet? ")
+            QnA[options[0]] = response1
+        elif "2" in key:
+            response2 = input("What is your favorite hobby? ")
+            QnA[options[1]] = response2 
+        elif "3" in key:
+            response3 = input("What's at the top of your bucket list? ")
+            QnA[options[2]] = response3
+        else:
+            print("Invalid input.")
+            quit()
+>>>>>>> 50b4c3424dae0dbfc6f60109778d928f333d88c5
+
+        print("Great!")
+        print("These responses will make it easier for you to remember your password.")
+        print("What would you like your password hint question to be?")
+        hintAccessQ = input("Ex. What was the first song that I wrote?\n")
+        print("What do you want to be the answer that grants access to a password hint?")
+        hintAccessAns = input("Ex. Summer Song\n")
+        # list of user's responses to questions
+        
+        responses = []
+        for key in QnA.keys(): 
+            responses.append(QnA[key])
+            self.responses = responses
+            #return responses
+        # dict of user's hint question and its answer to use for resetting password
+        #hints = {}
+        
+        self.hints[hintAccessQ] = hintAccessAns
+                
+        print("Would you like to return to the home screen?")
+        if input("Press \'n\' to exit program, input any other key to return. ") == "n":
+            quit()
+        return self.responses
+                
+    def password_hint(self):
         """
         Purpose
             Prompts user to ask for a hint when they forget their password. 
-            Gives them password hint if input matches hint_access_answer.
-        Args
-            hint_resquest (str): user should input "hint" or "help" in order to access hint process
-            expected_hint_response (str): value that user input should match in order to receive password hint
+            Gives them password hint if input matches hintAccessAns.
         Returns
-            if input matches hint_response, return password hint (the value of answer1, answer2, or answer3)
-            if input differs from expected_hint_response, return "try again, n attempts remaining" statement
+            if input matches hintAccessAns, return password hint (the value of answer1, answer2, or answer3)
+            if input differs from hintAccessAns, return "try again, n attempts remaining" statement
         Raises
-            ValueError if input differs from expected_hint_response
+            ValueError if input differs from hintAccessAns
         Side Effects
+<<<<<<< HEAD
             decrease attempts each time user inputs value different from expected_hint_response
         # partial code
         user_forgot("Forgot password?\nType "hint" to access your password hint question.\nType "reset" to reset your password.")
         if "1" in user_forgot:
             hint_request = input(")
+=======
+            decrease attempts each time user inputs value different from hintAccessAns
+>>>>>>> 50b4c3424dae0dbfc6f60109778d928f333d88c5
         """
+        user_forgot = input("Forgot password\nEnter 1 to access your password hint question.\nEnter 2 to try again")
+        attempts= 0
+        if "1" in user_forgot:
+            while attempts < 3:
+                hint = input("hintAccessAns")
+                #return self.hints
+                if hint in self.hints:
+                    print ("hint matches") 
+                    break
+                else:
+                    attempts += 1
+                    print (f"try again, {3 - attempts} attempts remaining")
+        print("Attempt exceeded")
+            
+        
 
     def recent_password(self):
         """
@@ -186,48 +286,41 @@ class PasswordGenerator:
             returns the new date so that it continously decreases by one each day. 
         Side effects
             User has no input here and consequently have no control over how often the password will expire.
-        """
-        current_day = datetime.date.today()  
-        expire_day = datetime.date.today() + datetime.timedelta(90)
-        days_left = expire_day - current_day
-        while current_day != expire_day:
-            current_day+=datetime.timedelta(1)
-            days_left -=datetime.timedelta(1)
-            if current_day == expire_day:
-                print("you have to generate a new password today!")
-            else:
-                print(f"you have {abs(days_left)} until you will need a new password")
-                break
-        
-        
+        """ 
+        expire_day = self.start_day + datetime.timedelta(90)
+        days_left = expire_day - datetime.datetime.now()
+       # while self.current_day != expire_day:
+           # self.current_day+=datetime.timedelta(1)
+            #days_left -=datetime.timedelta(1)
+        if self.start_day == expire_day:
+            print("you have to generate a new password today!")
+        else:
+            print(f"you have {abs(days_left)} until you will need a new password")
+            
         
     def reset_password(self):
         """
         Purpose
-            This function will allow the user to reset their password if the forgot it.
-            
+            This function will allow the user to reset their password if the forgot it.    
         Args
             username (str): user's login name
             answer1 (str): user's answer to the first question, defaults to None if the user doesn't choose this question
             answer2 (str): user's answer to the second question, defaults to None if the user doesn't choose this question
             answer3 (str): user's answer to the third question, defaults to None if the user doesn't choose this question
-        
         Returns
             This will return a str with the newly generated password.
-            
         Raises
-            ValueError if one or more answers does equal the answer we have on file.
-            
+            ValueError if one or more answers does equal the answer we have on file.  
         Side Effects
             User doesnt not choose their password. They will have to go through the entire process of reanswering questions to reset
         """
-        answer1 = input(" Enter your answer to your first question ")
-        answer2 = input(" Enter your answer to your second question ")
-        answer3 = input(" Enter your answer to you third question ")
-        if answer1.lower == responses[0].lower & answer2.lower == responses[1].lower & answer3.lower == responses[2].lower:
-            generate_password()
+    
+        answer1 = input("Enter your answer to your password hint question ")
+        if answer1 == self.responses[0]:
+            print("your new password is: ", self.generate_password(8,3,3))
         else:
             raise ValueError ("One or more of your answers were incorrect please try again")
+            
      
      
      
@@ -271,18 +364,18 @@ class PasswordGenerator:
         
     Side Effect: 
         Will record password if password has not been used yet. 
-
         """
+        #with open('password_file.txt') as commonPasswords:
+        #    filename = commonPasswords.read()
         with open (filename, "r", encoding = "utf-8", errors="ignore") as f:
-                content = f.read()
-                content_list = content.split(",")
-                gen_password = input("Input generated password here.")
-                for x in gen_password:
-                    for i in content_list:
-                        if x == i:
-                            print( "Password is common")
-                else: 
-                    print("Password is not common")
+            content = f.read()
+            content_list = content.split(",")
+            gen_password = input("Input generated password here.")
+            if gen_password in content_list:
+                print("password is common")
+            else: 
+                print("password is not common")
+                content_list.append(gen_password)
 
     
 def parse_args(arglist):
@@ -346,5 +439,3 @@ def common_password(self,filename,password):
     Side Effect: 
         Records password if not common.
     """ 
-    
-   
