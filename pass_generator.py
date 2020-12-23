@@ -76,6 +76,7 @@ class PasswordGenerator:
             elif selection == "1":
                 self.selection1()
             elif selection == "2":
+		# this redirects to Aroge's method
                 self.password_hint()
             elif selection == "3":
                 self.reset_password()
@@ -124,8 +125,8 @@ class PasswordGenerator:
         hintAccessQ = input("Ex. What was the first song that I wrote?\n")
         print("What do you want to be the answer that grants access to a password hint?")
         hintAccessAns = input("Ex. Summer Song\n")
-        # list of user's responses to questions
         
+	# list of user's responses to questions
         responses = []
         for key in QnA.keys(): 
             responses.append(QnA[key])
