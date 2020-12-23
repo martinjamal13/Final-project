@@ -7,9 +7,12 @@ import string
 import builtins
 from unittest import mock 
 from pass_generator.py import PasswordGenerator
-
+class test_PasswordGenerator:
+    def test_resetpassword(self):
+        pg = PasswordGenerator()
+        assert pg.reset_password(self) == pg.generate_password()
 # Happy path
-self.user_input("johndoe1")
+    self.user_input("johndoe1")
     # Generate password
     print("1")
     # Password hint
@@ -26,13 +29,13 @@ self.user_input("johndoe1")
     print("7")
 
 # Unhappy path
-self.user_input(nonstring)
+    self.user_input(nonstring)
     print("letter")
     print("#$%")
     print("8")
 
 # Happy path
-self.selection1()
+    self.selection1()
     print("1")
     print("mars")
     print("what's my dog's name?")
@@ -97,17 +100,17 @@ self.selection1()
     print("w")
 
 # Unhappy path
-self.selection1()
+    self.selection1()
     print("q")
-self.selection1()
+    self.selection1()
     print("4")
-self.selection1()
+    self.selection1()
     print(" ")
-self.selection1()
+    self.selection1()
     print("$")
 
 
-def test_used_password (capsys):
+    def test_used_password (capsys):
     #Happy Path
     with mock.patch('builtins.input',side_effect = ["w3g5h7j8"]):
         used_password("password_file")
@@ -119,53 +122,53 @@ def test_used_password (capsys):
         captured = capsys.readouterr()
         assert captured.out == ("Password has been used before.\n")
     
-def test_valid_password_generator():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        password = pwdGen.generate_password(8, 2, 2)
-        assert len(password) == 8
+    def test_valid_password_generator():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            password = pwdGen.generate_password(8, 2, 2)
+            assert len(password) == 8
     
 
-def test_valid_password_generator_minimum_limits():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        password= pwdGen.generate_password(8, 2, 3)
-        digitCount = 0
-        alphabetCount = 0
-        for s in password:
-            if s.isdigit():
-                digitCount += 1
-            else:
-                alphabetCount += 1
+    def test_valid_password_generator_minimum_limits():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            password= pwdGen.generate_password(8, 2, 3)
+            digitCount = 0
+            alphabetCount = 0
+            for s in password:
+                if s.isdigit():
+                    digitCount += 1
+                else:
+                    alphabetCount += 1
     
-        assert len(password) == 8
-        assert digitCount >= 2
-        assert alphabetCount >= 3
+            assert len(password) == 8
+            assert digitCount >= 2
+            assert alphabetCount >= 3
     
 
-def test_valid_password_generator_invalid_length():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        pwdGen.generate_password(0, 2, 3)
+    def test_valid_password_generator_invalid_length():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            pwdGen.generate_password(0, 2, 3)
 
-def test_valid_password_generator_invalid_minDigits():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        pwdGen.generate_password(8, 0, 3)
+    def test_valid_password_generator_invalid_minDigits():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            pwdGen.generate_password(8, 0, 3)
 
-def test_valid_password_generator_invalid_minAlphabets():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        pwdGen.generate_password(8, 3, 0)
+    def test_valid_password_generator_invalid_minAlphabets():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            pwdGen.generate_password(8, 3, 0)
 
-def test_valid_password_generator_invalid_Args():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        pwdGen.generate_password(8, 12, 8)
+    def test_valid_password_generator_invalid_Args():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+            pwdGen.generate_password(8, 12, 8)
 
-def test_valid_password_generator_invalid_total_args():
-    pwdGen = PasswordGenerator
-    with pytest.raises(ValueError):
-        pwdGen.generate_password(8, 6, 6)
+    def test_valid_password_generator_invalid_total_args():
+        pwdGen = PasswordGenerator
+        with pytest.raises(ValueError):
+         pwdGen.generate_password(8, 6, 6)
 
          
