@@ -49,7 +49,8 @@ class PasswordGenerator:
     def user_input(self, username):
         """
         Purpose
-            prompt user with questions to integrate memorable password segments, save username, and save hint question and answer
+            prompt user with questions to integrate memorable password segments, 
+            save username, and save hint question and answer
         Args
             username (str): user's login name
         Returns
@@ -58,76 +59,99 @@ class PasswordGenerator:
             ValueError if none of the questions are answered
         Side Effects
             if no questions are answered, return "select a question" statement
-            stores values for question responses in list to use when generating password
-            stores values for hintquestion and hintanswer in dict to use in "reset password" method
+            stores values for question responses in list to use when generating 
+            password
+            stores values for hintquestion and hintanswer in dict to use in 
+            "reset password" method
         """
-        #self.username = input("PasswordGenerator, the internet's most secure password generator.\nUsername: ")
+        print("PasswordGenerator, the internet's most secure password generator.")
+        self.username = input("Username: ")
         while True:
-            print(f"\nHi {username}, what would you like to do? (1/2/3/4/5)")
-            selection = input("1) Generate password\n2) Reset password\n3) Check if password has been used before\n4) Check if my password is common\n5) How days until you need to change your password\n6) Exit program\n")
+            print(f"\nHi {username}, what would you like to do?")
+            selection = input("(1/2/3/4/5)")
+            print("1) Generate password")
+            print("2) Reset password")
+            print("3) Check if password has been used before")
+            print("4) Check if my password is common")
+            print("5) How days until you need to change your password")
+            print("6) Exit program")
+            
             if selection == "6":
                 print("Enjoy your password!")
                 break
-            
             elif selection == "1":
-                print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
-                print("\nWhich questions would you like to use to help create your password?")
-                print("1) What's your favorite planet?\n2) What is your favorite hobby?\n3) What's at the top of your bucket list?")
-                
-                key = input("\nType the corresponding number here: ").strip()
+                #redirect to method 'input1to5'
 
-                options = ["What is your favorite planet?", "What is your favorite hobby?", "What's at the top of your bucket list?"]
+    # if user selects options 1 through 5
+    def input1to5():
+        print(PasswordGenerator.generate_password(self, 8,3,3)) #says name is undefined 
+        print("Which questions would you like to use to help create your password?")
+        print("1) What's your favorite planet?
+        print("2) What is your favorite hobby?"
+        print("3) What's at the top of your bucket list?")
+                
+        key = input("\nType the corresponding number here: ").strip()
 
-                # dict of user's questions and responses 
-                QnA = {}  
+        options = [ 
+                    "What is your favorite planet?", 
+                    "What is your favorite hobby?", 
+                    "What's at the top of your bucket list?"
+                ]
+
+        # dict of user's questions and responses 
+        QnA = {}  
                 
-                if "1" in key:
-                    response1 = input("What is your favorite planet? ")
-                    QnA[options[0]] = response1
-                elif "2" in key:
-                    response2 = input("What is your favorite hobby? ")
-                    QnA[options[1]] = response2 
-                elif "3" in key:
-                    response3 = input("What's at the top of your bucket list? ")
-                    QnA[options[2]] = response3
-                else:
-                    print("Invalid input.")
-                    break
+        if "1" in key:
+            response1 = input("What is your favorite planet? ")
+            QnA[options[0]] = response1
+        elif "2" in key:
+            response2 = input("What is your favorite hobby? ")
+            QnA[options[1]] = response2 
+        elif "3" in key:
+            response3 = input("What's at the top of your bucket list? ")
+            QnA[options[2]] = response3
+        else:
+            print("Invalid input.")
+            break
                     
-                # list of user's responses to questions
-                responses = []
+        # list of user's responses to questions
+        responses = []
                 
-                for key in QnA.keys(): 
-                    responses.append(QnA[key])
-                    return responses
+        for key in QnA.keys(): 
+            responses.append(QnA[key])
+            return responses
                     
-                print("\nGreat! These responses will make it easier for you to remember your password.\n")
-                hint_access_question = input("What would you like your password hint question to be? (Ex. What was the first song that I wrote?)\n")
-                hint_access_answer = input("What do you want to be the answer that grants access to a password hint? (Ex. Green Grass)\n")
+        print("\nGreat!")
+        print("These responses will make it easier for you to remember your password.")
+        print("What would you like your password hint question to be?")
+        hintAccessQ = input("Ex. What was the first song that I wrote?\n")
+        print("What do you want to be the answer that grants access to a password hint?")
+        hintAccessAns = input("Ex. Summer Song\n")
                 
-                # dict of user's hint question and its answer to use for resetting password
-                hints = {}
-                hints[hint_access_question] = hint_access_answer
+        # dict of user's hint question and its answer to use for resetting password
+        hints = {}
+        hints[hintAccessQ] = hintAccessAns
                 
-                # list of user's responses to password generator questions
-                password_hint = responses
-                if input("Would you like to return to the home screen? Press \'n\' to exit program, input any other key to return. ") == "n":
-                    break 
+        # list of user's responses to password generator questions
+        password_hint = responses
+        print("Would you like to return to the home screen?")
+        if input("Press \'n\' to exit program, input any other key to return. ") == "n":
+            break
                 
-                #return responses
+        #return responses
              
-            elif selection == "2":
-                PasswordGenerator.reset_password(self)
-                #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
+        elif selection == "2":
+            PasswordGenerator.reset_password(self)
+            #print(f"your new password is: {PasswordGenerator.generate_password(self, 8,3,3)}")
                  
-            elif selection == "3": 
-                PasswordGenerator.used_password(self)
-                break
-            elif selection == "4":
-                print("Coming soon.")
-                break
-            elif selection == "5":
-                PasswordGenerator.recent_password(self)
+        elif selection == "3": 
+            PasswordGenerator.used_password(self)
+            break
+        elif selection == "4":
+            print("Coming soon.")
+            break
+        elif selection == "5":
+            PasswordGenerator.recent_password(self)
 
                 
     def password_hint(self, hint_request, expected_hint_response):
@@ -145,6 +169,10 @@ class PasswordGenerator:
             ValueError if input differs from expected_hint_response
         Side Effects
             decrease attempts each time user inputs value different from expected_hint_response
+        # partial code
+        user_forgot("Forgot password?\nType "hint" to access your password hint question.\nType "reset" to reset your password.")
+        if "1" in user_forgot:
+            hint_request = input(")
         """
 
     def recent_password(self):
