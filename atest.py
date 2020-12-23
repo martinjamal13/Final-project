@@ -10,7 +10,7 @@ from pass_generator.py import PasswordGenerator
 class test_PasswordGenerator:
     def test_resetpassword(self):
         pg = PasswordGenerator()
-        assert pg.reset_password(self) == pg.generate_password()
+        assert pg.reset_password(self) == pg.generate_password(8,3,3)
 # Happy path
     self.user_input("johndoe1")
     # Generate password
