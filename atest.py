@@ -118,4 +118,54 @@ def test_used_password (capsys):
         used_password("password_file")
         captured = capsys.readouterr()
         assert captured.out == ("Password has been used before.\n")
+    
+def test_valid_password_generator():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        password = pwdGen.generate_password(8, 2, 2)
+        assert len(password) == 8
+    
+
+def test_valid_password_generator_minimum_limits():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        password= pwdGen.generate_password(8, 2, 3)
+        digitCount = 0
+        alphabetCount = 0
+        for s in password:
+            if s.isdigit():
+                digitCount += 1
+            else:
+                alphabetCount += 1
+    
+        assert len(password) == 8
+        assert digitCount >= 2
+        assert alphabetCount >= 3
+    
+
+def test_valid_password_generator_invalid_length():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        pwdGen.generate_password(0, 2, 3)
+
+def test_valid_password_generator_invalid_minDigits():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        pwdGen.generate_password(8, 0, 3)
+
+def test_valid_password_generator_invalid_minAlphabets():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        pwdGen.generate_password(8, 3, 0)
+
+def test_valid_password_generator_invalid_Args():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        pwdGen.generate_password(8, 12, 8)
+
+def test_valid_password_generator_invalid_total_args():
+    pwdGen = PasswordGenerator
+    with pytest.raises(ValueError):
+        pwdGen.generate_password(8, 6, 6)
+
          
