@@ -4,6 +4,8 @@ import argparse
 import hashlib
 import random
 import string
+import builtins
+from unittest import mock 
 from pass_generator.py import PasswordGenerator
 
 # Happy path
@@ -103,3 +105,17 @@ self.selection1()
     print(" ")
 self.selection1()
     print("$")
+
+
+def test_used_password (capsys):
+    #Happy Path
+    with mock.patch('builtins.input',side_effect = ["w3g5h7j8"]):
+        used_password("password_file")
+        captured = capsys.readouterr()
+        assert captured.out == ("987654321.\n")
+    #Unhappy Path
+    with mock.patch('builtins.input',side_effect = ["jennifer"]):
+        used_password("password_file")
+        captured = capsys.readouterr()
+        assert captured.out == ("Password has been used before.\n")
+         
